@@ -6,16 +6,20 @@ class CarsBase(BaseModel):
     tyres: int
     doors: int
     horsepower: int
-    type= str
+    type: str
+
 
 
 class CarsCreate(CarsBase):
-    manufacturer_id=int
-    pass
+    manufacturer_id: int
+    numberplate: str
+    customer_id: int | None = None
 
 class Cars(CarsBase):
     id: int
     manufacturer_id: int
+    numberplate: str
+    customer_id: int | None = None
 
     class Config:
         orm_mode = True

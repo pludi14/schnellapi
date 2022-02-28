@@ -21,7 +21,7 @@ def get_db():
 async def root():
     return {"message": "Hello World"}
 
-
+############## Manufacturer ##################
 @app.post("/v1/manufacturer/", response_model=schemas.Manufacturer)
 def create_manufacturer(manufacturer: schemas.ManufacturerCreate, db: Session = Depends(get_db)):
     db_manufacturer = crud.get_manufacturer_by_name(db, manufacturer_name=manufacturer.name)
@@ -36,7 +36,39 @@ def read_manufacturer(manufacturer_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Manufacturer not found")
     return db_manufacturer
 
+@app.get("/v1/manufacturer/", response_model=list[schemas.Manufacturer])
+def read_manufacturers(db: Session = Depends(get_db)):
+    db_manufacturers = crud.get_manufacturers(db)
+    if db_manufacturers == None:
+        raise HTTPException(status_code=400, detail="No manufacturer available")
+    return db_manufacturers
 
+############## Cars ##################
+@app.post("/v1/cars/", response_model=schemas.Cars)
+def create_car(car: schemas.CarsCreate, db: Session = Depends(get_db)):
+    db_cars=crud.get_car_by_numberplate(db, numberplate=car.numberplate)
+    if db_cars:
+        raise HTTPException(status_code=400, detail="Numberplate already exists")
+    return crud.create_car(db=db, car=car, manufacturer_id=car.manufacturer_id, numberplate=car.numberplate)
+
+
+
+@app.get("/v1/cars/{car_id}", response_model=schemas.Cars)
+def read_cars(car_id: int, db: Session = Depends(get_db)):
+    db_car = crud.get_car(db, car_id=car_id)
+    if db_car == None:
+        raise HTTPException(status_code=404, detail="Car not found")
+    return db_car
+
+@app.get("/v1/cars/", response_model=list[schemas.Cars])
+def read_all_cars(db: Session = Depends(get_db)):
+    db_cars = crud.get_cars(db)
+    if db_cars == None:
+        raise HTTPException(status_code=404, detail="No Cars not found")
+    return db_cars
+
+
+############## Customers ##################
 
 
 

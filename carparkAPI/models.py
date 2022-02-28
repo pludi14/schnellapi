@@ -13,6 +13,7 @@ class Cars(Base):
     doors = Column(Integer)
     horsepower = Column(Integer)
     type=Column(String)
+    numberplate=Column(String, index=True)
     manufacturer_id = Column(Integer, ForeignKey("manufacturer.id"))
     customer_id=Column(Integer, ForeignKey("customers.id"))
 

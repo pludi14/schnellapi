@@ -7,11 +7,14 @@ from . import models, schemas
 def get_car(db: Session, car_id: int):
     return db.query(models.Cars).filter(models.Cars.id == car_id).first()
 
+def get_car_by_numberplate(db: Session, numberplate: str):
+    return db.query(models.Cars).filter(models.Cars.numberplate == numberplate).first()
+
 def get_cars(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Cars).offset(skip).limit(limit).all()
 
-def create_car(db: Session, car: schemas.CarsCreate, manufacturer_id: int):
-    db_car= models.Cars(name=car.name, tyres=car.tyres, doors=car.doors, horsepower=car.horsepower, type=car.type, manufacturer_id=manufacturer_id)
+def create_car(db: Session, car: schemas.CarsCreate, manufacturer_id: int, numberplate: str):
+    db_car= models.Cars(name=car.name, tyres=car.tyres, doors=car.doors, horsepower=car.horsepower, type=car.type, manufacturer_id=manufacturer_id, numberplate=numberplate, customer_id=car.customer_id)
     db.add(db_car)
     db.commit()
     db.refresh(db_car)
