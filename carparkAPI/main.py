@@ -23,14 +23,14 @@ async def root():
 
 
 @app.post("/v1/manufacturer/", response_model=schemas.Manufacturer)
-async def create_manufacturer(manufacturer: schemas.ManufacturerCreate, db: Session = Depends(get_db)):
+def create_manufacturer(manufacturer: schemas.ManufacturerCreate, db: Session = Depends(get_db)):
     db_manufacturer = crud.get_manufacturer_by_name(db, manufacturer_name=manufacturer.name)
     if db_manufacturer:
         raise HTTPException(status_code=400, detail="Manufacturer already exists")
     return crud.create_manufacturer(db=db, manuf=manufacturer)
 
 @app.get("/v1/manufacturer/{manufacturer_id}", response_model=schemas.Manufacturer)
-async def read_manufacturer(manufacturer_id: int, db: Session = Depends(get_db)):
+def read_manufacturer(manufacturer_id: int, db: Session = Depends(get_db)):
     db_manufacturer = crud.get_manufacturer(db, manufacturer_id=manufacturer_id)
     if db_manufacturer == None:
         raise HTTPException(status_code=404, detail="Manufacturer not found")

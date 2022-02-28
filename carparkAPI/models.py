@@ -14,6 +14,7 @@ class Cars(Base):
     horsepower = Column(Integer)
     type=Column(String)
     manufacturer_id = Column(Integer, ForeignKey("manufacturer.id"))
+    customer_id=Column(Integer, ForeignKey("customers.id"))
 
     manufacturer = relationship("Manufacturer", back_populates="cars")
     customers=relationship("Customers", back_populates="cars")
