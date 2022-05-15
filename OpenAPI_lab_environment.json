@@ -1,0 +1,410 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/v1/": {
+            "head": {
+                "summary": "Root",
+                "operationId": "root_v1__head",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/manufacturer/": {
+            "get": {
+                "summary": "Read Manufacturers",
+                "operationId": "read_manufacturers_v1_manufacturer__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Read Manufacturers V1 Manufacturer  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Manufacturer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Manufacturer",
+                "operationId": "create_manufacturer_v1_manufacturer__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ManufacturerCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Manufacturer"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/manufacturer/{manufacturer_id}": {
+            "get": {
+                "summary": "Read Manufacturer",
+                "operationId": "read_manufacturer_v1_manufacturer__manufacturer_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Manufacturer Id",
+                            "type": "integer"
+                        },
+                        "name": "manufacturer_id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Manufacturer"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/cars/": {
+            "get": {
+                "summary": "Read All Cars",
+                "operationId": "read_all_cars_v1_cars__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Read All Cars V1 Cars  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Cars"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Car",
+                "operationId": "create_car_v1_cars__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CarsCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Cars"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/cars/{car_id}": {
+            "get": {
+                "summary": "Read Cars",
+                "operationId": "read_cars_v1_cars__car_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Car Id",
+                            "type": "integer"
+                        },
+                        "name": "car_id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Cars"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Cars": {
+                "title": "Cars",
+                "required": [
+                    "name",
+                    "tyres",
+                    "doors",
+                    "horsepower",
+                    "type",
+                    "id",
+                    "manufacturer_id",
+                    "numberplate"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "tyres": {
+                        "title": "Tyres",
+                        "type": "integer"
+                    },
+                    "doors": {
+                        "title": "Doors",
+                        "type": "integer"
+                    },
+                    "horsepower": {
+                        "title": "Horsepower",
+                        "type": "integer"
+                    },
+                    "type": {
+                        "title": "Type",
+                        "type": "string"
+                    },
+                    "id": {
+                        "title": "Id",
+                        "type": "integer"
+                    },
+                    "manufacturer_id": {
+                        "title": "Manufacturer Id",
+                        "type": "integer"
+                    },
+                    "numberplate": {
+                        "title": "Numberplate",
+                        "type": "string"
+                    },
+                    "customer_id": {
+                        "title": "Customer Id",
+                        "type": "integer"
+                    }
+                }
+            },
+            "CarsCreate": {
+                "title": "CarsCreate",
+                "required": [
+                    "name",
+                    "tyres",
+                    "doors",
+                    "horsepower",
+                    "type",
+                    "manufacturer_id",
+                    "numberplate"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "tyres": {
+                        "title": "Tyres",
+                        "type": "integer"
+                    },
+                    "doors": {
+                        "title": "Doors",
+                        "type": "integer"
+                    },
+                    "horsepower": {
+                        "title": "Horsepower",
+                        "type": "integer"
+                    },
+                    "type": {
+                        "title": "Type",
+                        "type": "string"
+                    },
+                    "manufacturer_id": {
+                        "title": "Manufacturer Id",
+                        "type": "integer"
+                    },
+                    "numberplate": {
+                        "title": "Numberplate",
+                        "type": "string"
+                    },
+                    "customer_id": {
+                        "title": "Customer Id",
+                        "type": "integer"
+                    }
+                }
+            },
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        }
+                    }
+                }
+            },
+            "Manufacturer": {
+                "title": "Manufacturer",
+                "required": [
+                    "name",
+                    "location",
+                    "id"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "location": {
+                        "title": "Location",
+                        "type": "string"
+                    },
+                    "id": {
+                        "title": "Id",
+                        "type": "integer"
+                    },
+                    "cars": {
+                        "title": "Cars",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Cars"
+                        },
+                        "default": []
+                    }
+                }
+            },
+            "ManufacturerCreate": {
+                "title": "ManufacturerCreate",
+                "required": [
+                    "name",
+                    "location"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "location": {
+                        "title": "Location",
+                        "type": "string"
+                    }
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "title": "Location",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "type": {
+                        "title": "Error Type",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
